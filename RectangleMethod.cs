@@ -4,48 +4,48 @@ namespace Lab2
 {
     internal class RectangleMethod
     {
-        public double work(double confines1, double  confines2, double UserInaccuracy ,Program.FuncValue funcpointer)
+        public double MainRectangleMethod(double leftConfines, double  rightConfines, double UserInaccuracy ,Program.FuncValue funcpointer)
         {
-            double leftRectangles1 = 0, rightRectangles1 = 0, averagesRectangles1 = 0 ,step, RealInaccuracy = 0,tmp,n=1;
-            int sing = 1;
-            if (confines1 > confines2) //если левая граница больше правой, меняем их местами и меняем знак 
+            double leftRectangles1 = 0, rightRectangles1 = 0, averagesRectangles1 = 0 ,step, RealInaccuracy = 0,tmp, numberSeparation=1;
+            int sign = 1;
+            if (leftConfines > rightConfines) //если левая граница больше правой, меняем их местами и меняем знак 
             {
-                tmp = confines1;
-                confines1 = confines2;
-                confines2 = tmp;
-                sing = -1;
+                tmp = leftConfines;
+                leftConfines = rightConfines;
+                rightConfines = tmp;
+                sign = -1;
             }
             
             do
             {
-                n *= 2; //разбиения In
-                step = (confines2 - confines1) / n; //h для In
-                leftRectangles1 = CalculationIntegral(confines1, confines2, step, funcpointer,1); //значение In методом левых треугольников
-                rightRectangles1 = CalculationIntegral(confines1, confines2, step, funcpointer,2); //значение In методом правых треугольников
-                averagesRectangles1 = CalculationIntegral(confines1, confines2, step, funcpointer,3);//значение In методом средних треуголников
+                numberSeparation *= 2; //разбиения In
+                step = (rightConfines - leftConfines) / numberSeparation; //h для In
+                Result.leftRectangles =  CalculationIntegral(leftConfines, rightConfines, step, funcpointer,1); //значение In методом левых прямоугольников
+                Result.rightRectangles =CalculationIntegral(leftConfines, rightConfines, step, funcpointer,2); //значение In методом правых прямоугольников
+                Result.averagesRectangles = CalculationIntegral(leftConfines, rightConfines, step, funcpointer,3);//значение In методом средних прямоугольников
                 
-                n *= 2;//разбиения I2n (в 2 разабольше, чем In)
-                step = (confines2 - confines1) / n; //h для I2n
-                Result.leftRectangles = CalculationIntegral(confines1, confines2, step, funcpointer,1); //значение I2n методом левых треугольников
-                Result.rightRectangles = CalculationIntegral(confines1, confines2, step, funcpointer,2);//значение I2n методом правых треугольников
-                Result.averagesRectangles = CalculationIntegral(confines1, confines2, step, funcpointer,3);//значение I2n методом средних треуголников
+                numberSeparation *= 2;//разбиения I2n (в 2 разабольше, чем In)
+                step = (rightConfines- leftConfines) / numberSeparation; //h для I2n
+                leftRectangles1 = CalculationIntegral(leftConfines, rightConfines, step, funcpointer,1); //значение I2n методом левых прямоугольников
+                rightRectangles1 = CalculationIntegral(leftConfines, rightConfines, step, funcpointer,2);//значение I2n методом правых прямоугольников
+                averagesRectangles1 = CalculationIntegral(leftConfines, rightConfines, step, funcpointer,3);//значение I2n методом средних прямоугольников
 
-                Result.inaccuracyA = 0.3 * Math.Abs(Result.averagesRectangles - averagesRectangles1);//вычисление погрешности методом Рунге для средних треугольников
-                Result.inaccuracyL = 0.3* Math.Abs(Result.leftRectangles - leftRectangles1);//вычисление погрешности методом Рунге для левых треугольников
-                Result.inaccuracyR = 0.3* Math.Abs(Result.rightRectangles - rightRectangles1);//вычисление погрешности методом Рунге для правых треугольников 
+                Result.inaccuracyA = 0.3 * Math.Abs(averagesRectangles1 - Result.averagesRectangles  );//вычисление погрешности методом Рунге для средних прямоугольников
+                Result.inaccuracyL = 0.3* Math.Abs(leftRectangles1 - Result.leftRectangles  );//вычисление погрешности методом Рунге для левых прямоугольников
+                Result.inaccuracyR = 0.3 *Math.Abs(rightRectangles1 - Result.rightRectangles);//вычисление погрешности методом Рунге для правых прямоугольников
 
                 RealInaccuracy = MaximumError();//выбираем самую большую погрешность из трех методов
 
             } while (RealInaccuracy > UserInaccuracy);//делаем вот это все пока какая-либо погрешность из 3х методов будет больше заданной пользователем
 
-            if (sing == -1) //если левая граница больше правой, меняем знак результата 
+            if (sign == -1) //если левая граница больше правой, меняем знак результата 
             {
                 Result.leftRectangles = -Result.leftRectangles;
                 Result.rightRectangles = -Result.rightRectangles;
                 Result.averagesRectangles = -Result.averagesRectangles;
             }
             
-            return n; //кол-во разбиений
+            return numberSeparation/2; //кол-во разбиений
         }
 
         public double MaximumError()//выбираем самую большую погрешность из трех методов

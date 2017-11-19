@@ -4,3 +4,9 @@
 /home/bishamon/RiderProjects/Lab2/Lab2/bin/Debug/Lab2.pdb
 /home/bishamon/RiderProjects/Lab2/Lab2/obj/Debug/Lab2.exe
 /home/bishamon/RiderProjects/Lab2/Lab2/obj/Debug/Lab2.pdb
+/home/bishamon/Документы/Git/Integration/obj/Debug/Lab2.csprojResolveAssemblyReference.cache
+/home/bishamon/Документы/Git/Integration/obj/Debug/Lab2.csproj.CoreCompileInputs.cache
+/home/bishamon/Документы/Git/Integration/obj/Debug/Lab2.exe
+/home/bishamon/Документы/Git/Integration/obj/Debug/Lab2.pdb
+/home/bishamon/Документы/Git/Integration/bin/Debug/Lab2.exe
+/home/bishamon/Документы/Git/Integration/bin/Debug/Lab2.pdb

@@ -10,34 +10,53 @@ namespace Lab2
         public static void Main(string[] args)
         {
             FuncValue funcpointer = new FuncValue(Func1);
-            int numb;
-            double n = 0;
-            double confines1, confines2, inaccuracy;
+            int m = 0;
+            int numbFunc;
+            double ValueIntegral = 0;
+            double leftConfines, rightConfines, inaccuracy;
             RectangleMethod solution = new RectangleMethod();
             UI ui = new UI();
-            
-            numb = ui.SelectFunc();
-            ui.Confines(out confines1,out confines2);
-            inaccuracy = ui.Inaccuracy();
+            bool ExitProgram = false;
 
-            switch (numb)
+            while (!ExitProgram)
             {
+                numbFunc = ui.SelectFunc();
+
+                switch (numbFunc)
+                {
                     case 1:
-                        n = solution.work(confines1,confines2,inaccuracy,funcpointer);
+                        ui.Confines(out leftConfines,out rightConfines);
+                        inaccuracy = ui.Inaccuracy();
+                        ValueIntegral = solution.MainRectangleMethod(leftConfines,rightConfines,inaccuracy,funcpointer);
+                        m = 1;
+                        UI.OutResult(ValueIntegral);
                         break;
                     case  2:
+                        ui.Confines(out leftConfines,out rightConfines);
+                        inaccuracy = ui.Inaccuracy();
                         funcpointer = Func2;
-                        n = solution.work(confines1,confines2,inaccuracy,funcpointer);
+                        ValueIntegral = solution.MainRectangleMethod(leftConfines,rightConfines,inaccuracy,funcpointer);
+                        UI.OutResult(ValueIntegral);
                         break;
                     case 3:
+                        ui.Confines(out leftConfines,out rightConfines);
+                        inaccuracy = ui.Inaccuracy();
                         funcpointer = Func3;
-                        n = solution.work(confines1,confines2,inaccuracy,funcpointer);
+                        ValueIntegral = solution.MainRectangleMethod(leftConfines,rightConfines,inaccuracy,funcpointer);
+                        UI.OutResult(ValueIntegral);
                         break;
-                     default:
-                         UI.Err(4);
-                         break;
+                    case  4:
+                        ExitProgram = true;
+                        UI.By();
+                        break;
+                    default:
+                        UI.Error(4);
+                        break;
+                }
+                
             }
-            UI.OutResult(n);
+            
+            
         }
         
         public static double Func1( double x)
